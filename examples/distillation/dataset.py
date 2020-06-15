@@ -77,7 +77,7 @@ class Dataset:
                     if sub_s[0] != cls_id:
                         sub_s = np.insert(sub_s, 0, cls_id)
                     if sub_s[-1] != sep_id:
-                        sub_s = np.insert(sub_s, len(sub_s), cls_id)
+                        sub_s = np.insert(sub_s, len(sub_s), sep_id)
                     assert len(sub_s) <= max_len
                     sub_seqs.append(sub_s)
 
@@ -92,11 +92,11 @@ class Dataset:
         Too short sequences are simply removed. This could be tunedd.
         """
         init_size = len(self)
-        indices = self.lengths > 5
+        indices = self.lengths > 11
         self.token_ids = self.token_ids[indices]
         self.lengths = self.lengths[indices]
         new_size = len(self)
-        logger.info(f'Remove {init_size - new_size} too short (<=5 tokens) sequences.')
+        logger.info(f'Remove {init_size - new_size} too short (<=11 tokens) sequences.')
 
     def print_statistics(self):
         """
